@@ -1,0 +1,28 @@
+{
+  "dart.flutterHotReloadOnSave": "all",
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.gitignore": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.dart_tool": true,
+    "**/.idea": true,
+    "**/.metadata": true,
+    "**/.packages": true,
+    "**/.flutter-plugins*": true,
+    "**/build": true,
+    "**/linux": true,
+    "**/pubspec.lock": true,
+    "**/*.iml": true,
+    "**/LICENSE": true,
+    "**/CHANGELOG.md": true,
+    "**/analysis_options.yaml": true
+  },
+  "editor.formatOnSave": true,
+  "terminal.integrated.enablePersistentSessions": false,
+  "terminal.integrated.persistentSessionReviveProcess": "never"
+}
