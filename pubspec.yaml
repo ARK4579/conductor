@@ -1,5 +1,5 @@
 name: conductor
-description: "A new Flutter package project."
+description: "Conductor: An event-driven, deterministic, state-machine based library for managing interaction between various components of a Flutter app."
 version: 0.0.1
 repository: https://github.com/ARK4579/conductor
 
