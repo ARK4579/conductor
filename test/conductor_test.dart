@@ -1,12 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:conductor/conductor.dart';
+// import 'package:conductor/conductor.dart';
 
 void main() {
-  test('adds one to input values', () {
-    final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);
+  // a test to make sure the tests are running
+  group("Math Check", () {
+    test(
+      "2+2=4",
+      () => {
+        expect(
+          2 + 2,
+          4,
+        ),
+      },
+    );
   });
 }
