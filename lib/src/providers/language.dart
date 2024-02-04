@@ -1,11 +1,5 @@
 import 'package:conductor/conductor.dart';
 
-// enum Language {
-//   english,
-//   romanUrdu,
-//   urdu,
-// }
-
 class LanguageNotifier extends StateNotifier<Language> {
   LanguageNotifier(super.state);
 

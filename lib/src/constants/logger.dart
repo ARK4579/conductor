@@ -38,3 +38,4 @@ class _MyLogger {
 
 mLog(String message) => _MyLogger.logInfo(message);
 mWarn(String message) => _MyLogger.logWarning(message);
+mSevere(String message) => _MyLogger.logSevere(message);
