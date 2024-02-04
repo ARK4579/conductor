@@ -12,10 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
       - name: Setup Flutter SDK
         uses: flutter-actions/setup-flutter@v2
+        with:
+          channel: stable
+          version: 3.16.3
       - name: Install dependencies
         run: flutter pub get
       # Here you can insert custom steps you need
       - name: Publish
-        run: flutter pub publish --force
+        run: dart pub publish --force
