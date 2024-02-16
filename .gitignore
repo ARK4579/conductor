@@ -1,4 +1,15 @@
 # See https://www.dartlang.org/guides/libraries/private-files
+example/.dart_tool/
+example/.packages
+example/build/
+example/pubspec.lock
+example/android
+example/ios
+example/macos
+example/web
+example/windows
+example/linux
+
 
 # Files and directories created by pub
 .dart_tool/
