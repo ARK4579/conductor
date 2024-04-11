@@ -10,8 +10,8 @@ class IndigatorSignals {
 class IndigatorNotifier extends Notifier<IndigatorSignals> {
   @override
   IndigatorSignals build() {
-    Dataset.currentDateTime = ref.watch(currentTimerProvider).value;
-    return IndigatorSignals(Dataset.signals);
+    Dataset().currentDateTime = ref.watch(currentTimerProvider).value;
+    return IndigatorSignals(Dataset().signals);
   }
 }
 

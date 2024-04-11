@@ -1,10 +1,17 @@
 import 'package:conductor/conductor.dart';
 
 class Dataset {
-  static final Map<String, int> _signals = {};
-  static Map<String, int> get signals => _signals;
+  // make Dateset singleton so that we can easily access it from anywhere as well as extend
+  static final Dataset _instance = Dataset._internal();
+  factory Dataset() {
+    return _instance;
+  }
+  Dataset._internal();
 
-  static void setSignal(String signalName, {int? signalValue}) {
+  final Map<String, int> _signals = {};
+  Map<String, int> get signals => _signals;
+
+  void setSignal(String signalName, {int? signalValue}) {
     _signals[signalName] = signalValue ?? DateTime.now().millisecondsSinceEpoch;
   }
 
@@ -14,12 +21,12 @@ class Dataset {
 
   static const String signalCurrentDateTime = 'currentDateTime';
 
-  static DateTime? _currentDateTime;
-  static DateTime? get currentDateTime => _currentDateTime;
-  static set currentDateTime(DateTime? currentDateTime) {
+  DateTime? _currentDateTime;
+  DateTime? get currentDateTime => _currentDateTime;
+  set currentDateTime(DateTime? currentDateTime) {
     _currentDateTime = currentDateTime;
 
-    Dataset.setSignal(signalCurrentDateTime);
+    Dataset().setSignal(signalCurrentDateTime);
   }
 
   //
