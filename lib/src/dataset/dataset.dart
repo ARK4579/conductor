@@ -19,12 +19,34 @@ class Dataset {
   // Global Signals
   //
 
-  static const String signalCurrentDateTime = 'currentDateTime';
+  static const String signalCurrentDateTimeQuaterRange =
+      'signalCurrentDateTimeQuaterRange';
+  static DateTimeRange? _currentDateTimeQuaterRange;
+  DateTimeRange? get currentDateTimeQuaterRange => _currentDateTimeQuaterRange;
 
+  static const String signalCurrentDateTime = 'currentDateTime';
   DateTime? _currentDateTime;
   DateTime? get currentDateTime => _currentDateTime;
   set currentDateTime(DateTime? currentDateTime) {
     _currentDateTime = currentDateTime;
+
+    if (currentDateTime != null) {
+      final rangeStartTime = DateTime(
+        currentDateTime.year,
+        currentDateTime.month,
+        currentDateTime.day,
+        currentDateTime.hour,
+        (currentDateTime.minute ~/ 15) * 15,
+      );
+      final newCurrentDateTimeQuaterRange = DateTimeRange(
+        start: rangeStartTime,
+        end: rangeStartTime.add(const Duration(minutes: 15)),
+      );
+      if (_currentDateTimeQuaterRange != newCurrentDateTimeQuaterRange) {
+        _currentDateTimeQuaterRange = newCurrentDateTimeQuaterRange;
+        Dataset().setSignal(signalCurrentDateTimeQuaterRange);
+      }
+    }
 
     Dataset().setSignal(signalCurrentDateTime);
   }
