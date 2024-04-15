@@ -19,8 +19,7 @@ class Dataset {
   // Global Signals
   //
 
-  static const String signalCurrentDateTimeQuaterRange =
-      'signalCurrentDateTimeQuaterRange';
+  static const String signalCurrentDateTimeQuaterRange = 'signalCurrentDateTimeQuaterRange';
   static DateTimeRange? _currentDateTimeQuaterRange;
   DateTimeRange? get currentDateTimeQuaterRange => _currentDateTimeQuaterRange;
 
@@ -56,8 +55,7 @@ class Dataset {
   //
 
   static final Queue<CAction> _actionsQueue = Queue<CAction>();
-  static CAction? getActions() =>
-      _actionsQueue.isNotEmpty ? _actionsQueue.removeFirst() : null;
+  static CAction? getActions() => _actionsQueue.isNotEmpty ? _actionsQueue.removeFirst() : null;
   static void addAction(CAction action) {
     _actionsQueue.addLast(action);
   }

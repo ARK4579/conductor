@@ -1,12 +1,12 @@
 import 'package:conductor/conductor.dart';
 
-class CConductor {
-  final CAction starter;
-  const CConductor({
-    required this.starter,
-  });
+abstract class CConductor {
+  // final CAction starter;
+  // const CConductor({
+  //   required this.starter,
+  // });
 
-  List<CGame> get coreGames => [
+  static List<CGame> get coreGames => [
         CoreGeneralGame(),
       ];
 
@@ -15,9 +15,9 @@ class CConductor {
     _conductorGames.add(game);
   }
 
-  List<CGame> get games => coreGames + _conductorGames;
+  static List<CGame> get games => coreGames + _conductorGames;
 
-  void conduct() {
+  static void conduct(CAction starter) {
     CCarrier carrier = CCarrier()
       ..actions = [
         starter,

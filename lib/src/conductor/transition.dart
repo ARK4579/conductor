@@ -6,8 +6,8 @@ enum CTransitionResults {
   failure,
 }
 
-abstract class CTransition {
-  final CAction triggererAction;
+abstract class CTransition<T extends CAction> {
+  final T triggererAction;
   CTransition({required this.triggererAction});
 
   // success
@@ -29,13 +29,12 @@ abstract class CTransition {
 
     // if condition is overrideen, then use that only
     if (conditionResult != null) {
-      result = conditionResult
-          ? CTransitionResults.success
-          : CTransitionResults.failure;
+      result = conditionResult ? CTransitionResults.success : CTransitionResults.failure;
       return;
     }
 
     subTransit();
+    result = CTransitionResults.success;
   }
 
   void subTransit() {}

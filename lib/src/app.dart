@@ -27,8 +27,7 @@ abstract class AppBase extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _AppBaseState();
 }
 
-class _AppBaseState extends ConsumerState<AppBase>
-    with AfterLayoutMixin<AppBase> {
+class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase> {
   @override
   void afterFirstLayout(BuildContext context) {
     for (CGame game in widget.games) {

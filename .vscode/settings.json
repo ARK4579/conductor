@@ -1,7 +1,24 @@
 {
+  "dart.lineLength": 150,
+  "[dart]": {
+    "editor.rulers": [
+      150
+    ]
+  },
   "dart.flutterHotReloadOnSave": "all",
   "files.insertFinalNewline": true,
   "files.exclude": {
+    "**/.firebaserc": true,
+    "**/firebase.json": true,
+    "**/flutter_launcher_icons.yaml": true,
+    "**/flutter_native_splash.yaml": true,
+    "**/andriod_release_v1.ps1": true,
+    "**/publish_v1.ps1": true,
+    "**/android": true,
+    "**/ios": true,
+    "**/web": true,
+    "**/.crashlytics": true,
+    "**/my-builds": true,
     "**/.git": true,
     "**/.gitignore": true,
     "**/.svn": true,
@@ -14,15 +31,30 @@
     "**/.metadata": true,
     "**/.packages": true,
     "**/.flutter-plugins*": true,
+    "**/.firebase": true,
     "**/build": true,
     "**/linux": true,
+    "**/macos": true,
+    "**/windows": true,
     "**/pubspec.lock": true,
     "**/*.iml": true,
     "**/LICENSE": true,
     "**/CHANGELOG.md": true,
-    "**/analysis_options.yaml": true
+    "**/analysis_options.yaml": true,
+    "**/firebase_options.dart": true,
+    "**/generated_plugin_registrant.dart": true
   },
   "editor.formatOnSave": true,
+  "cSpell.words": [
+    "canonicalize",
+    "Morpher",
+    "recase",
+    "riverpod",
+    "sayana",
+    "sembast",
+    "trackpad",
+    "writeln"
+  ],
   "terminal.integrated.enablePersistentSessions": false,
   "terminal.integrated.persistentSessionReviveProcess": "never"
 }

@@ -8,6 +8,5 @@ class TimerModel {
 }
 
 final currentTimerProvider = StreamProvider<DateTime>((ref) {
-  return Stream.periodic(
-      const Duration(milliseconds: 500), (_) => DateTime.now());
+  return Stream.periodic(const Duration(milliseconds: 10), (_) => DateTime.now());
 });
