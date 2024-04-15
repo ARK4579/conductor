@@ -20,6 +20,12 @@ abstract class CGame {
 
       transition.transit();
 
+      for (CAction action in transition.actions) {
+        mLog("${transition.runtimeType}=>${action.identifier}");
+      }
+      for (CAction action in transition.carryActions) {
+        mLog("${transition.runtimeType}===>${action.identifier}");
+      }
       actions.addAll(transition.actions);
       carrier.actions.addAll(transition.carryActions);
       carrier.reactions.addAll(transition.reactions);

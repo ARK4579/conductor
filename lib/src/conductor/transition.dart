@@ -12,11 +12,13 @@ abstract class CTransition<T extends CAction> {
 
   // success
   List<CAction> get successActions => [];
+  List<CAction> successAdditionalActions = [];
   List<CReaction> get successReactions => [];
   List<CAction> get successCarryActions => [];
 
   // faliure
   List<CAction> get faliureActions => [];
+  List<CAction> faliureAdditionalActions = [];
   List<CReaction> get faliureReactions => [];
   List<CAction> get faliureCarryActions => [];
 
@@ -42,8 +44,8 @@ abstract class CTransition<T extends CAction> {
   List<CAction> get actions => result == CTransitionResults.notExecuted
       ? []
       : result == CTransitionResults.success
-          ? successActions
-          : faliureActions;
+          ? successActions + successAdditionalActions
+          : faliureActions + faliureAdditionalActions;
   List<CReaction> get reactions => result == CTransitionResults.notExecuted
       ? []
       : result == CTransitionResults.success
