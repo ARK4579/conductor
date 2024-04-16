@@ -7,8 +7,7 @@ enum CTransitionResults {
 }
 
 abstract class CTransition {
-  // final T triggererAction;
-  // CTransition({required this.triggererAction});
+  String get name => runtimeType.toString();
 
   // success
   List<CAction?> get successActions => <CAction?>[];
@@ -56,4 +55,9 @@ abstract class CTransition {
       : result == CTransitionResults.success
           ? successCarryActions.nonNulls.toList()
           : faliureCarryActions.nonNulls.toList();
+
+  @override
+  String toString() {
+    return name;
+  }
 }

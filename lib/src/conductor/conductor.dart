@@ -1,11 +1,6 @@
 import 'package:conductor/conductor.dart';
 
 abstract class CConductor {
-  // final CAction starter;
-  // const CConductor({
-  //   required this.starter,
-  // });
-
   static List<CGame> get coreGames => [
         CoreGeneralGame(),
       ];
@@ -49,22 +44,15 @@ abstract class CConductor {
       List<CTransition> transitions = nextAktion.transitions;
 
       for (final transition in transitions) {
-        // CTransition? transition = getTransition(nextAktion);
-
-        mLog("${starter.runtimeType}->${transition.runtimeType}");
-
-        // if transaction is null, then move to next action
-        // if (transition == null) {
-        //   continue;
-        // }
+        mLog("$nextAktion->${transition.runtimeType}");
 
         transition.transit();
 
         for (CAction action in transition.actions) {
-          mLog("${transition.runtimeType}=>${action.identifier}");
+          mLog("${transition.runtimeType}=>$action");
         }
         for (CAction action in transition.carryActions) {
-          mLog("${transition.runtimeType}===>${action.identifier}");
+          mLog("${transition.runtimeType}===>$action");
         }
         actions.addAll(transition.actions);
         carrier.actions.addAll(transition.carryActions);
