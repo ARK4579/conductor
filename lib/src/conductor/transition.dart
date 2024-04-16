@@ -6,9 +6,9 @@ enum CTransitionResults {
   failure,
 }
 
-abstract class CTransition<T extends CAction> {
-  final T triggererAction;
-  CTransition({required this.triggererAction});
+abstract class CTransition {
+  // final T triggererAction;
+  // CTransition({required this.triggererAction});
 
   // success
   List<CAction?> get successActions => <CAction?>[];

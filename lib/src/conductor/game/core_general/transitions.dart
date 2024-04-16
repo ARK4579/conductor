@@ -1,7 +1,8 @@
 import 'package:conductor/conductor.dart';
 
 class TimerIntervalCoreGeneralTransition extends CTransition {
-  TimerIntervalCoreGeneralTransition({required super.triggererAction});
+  final TimerIntervalCoreAction triggererAction;
+  TimerIntervalCoreGeneralTransition({required this.triggererAction});
 
   @override
   List<CReaction> get successReactions => [
@@ -10,7 +11,8 @@ class TimerIntervalCoreGeneralTransition extends CTransition {
 }
 
 class PopCoreGeneralTransition extends CTransition {
-  PopCoreGeneralTransition({required super.triggererAction});
+  final PopRouterCoreAction triggererAction;
+  PopCoreGeneralTransition({required this.triggererAction});
 
   @override
   List<CReaction> get successReactions => [
