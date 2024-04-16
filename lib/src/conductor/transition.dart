@@ -11,16 +11,16 @@ abstract class CTransition<T extends CAction> {
   CTransition({required this.triggererAction});
 
   // success
-  List<CAction> get successActions => [];
-  List<CAction> successAdditionalActions = [];
-  List<CReaction> get successReactions => [];
-  List<CAction> get successCarryActions => [];
+  List<CAction?> get successActions => <CAction?>[];
+  List<CAction?> successAdditionalActions = <CAction?>[];
+  List<CReaction?> get successReactions => <CReaction?>[];
+  List<CAction?> get successCarryActions => <CAction?>[];
 
   // faliure
-  List<CAction> get faliureActions => [];
-  List<CAction> faliureAdditionalActions = [];
-  List<CReaction> get faliureReactions => [];
-  List<CAction> get faliureCarryActions => [];
+  List<CAction?> get faliureActions => <CAction?>[];
+  List<CAction?> faliureAdditionalActions = <CAction?>[];
+  List<CReaction?> get faliureReactions => <CReaction?>[];
+  List<CAction?> get faliureCarryActions => <CAction?>[];
 
   CTransitionResults result = CTransitionResults.notExecuted;
 
@@ -44,16 +44,16 @@ abstract class CTransition<T extends CAction> {
   List<CAction> get actions => result == CTransitionResults.notExecuted
       ? []
       : result == CTransitionResults.success
-          ? successActions + successAdditionalActions
-          : faliureActions + faliureAdditionalActions;
+          ? successActions.nonNulls.toList() + successAdditionalActions.nonNulls.toList()
+          : faliureActions.nonNulls.toList() + faliureAdditionalActions.nonNulls.toList();
   List<CReaction> get reactions => result == CTransitionResults.notExecuted
       ? []
       : result == CTransitionResults.success
-          ? successReactions
-          : faliureReactions;
+          ? successReactions.nonNulls.toList()
+          : faliureReactions.nonNulls.toList();
   List<CAction> get carryActions => result == CTransitionResults.notExecuted
       ? []
       : result == CTransitionResults.success
-          ? successCarryActions
-          : faliureCarryActions;
+          ? successCarryActions.nonNulls.toList()
+          : faliureCarryActions.nonNulls.toList();
 }

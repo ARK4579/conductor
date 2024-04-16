@@ -24,9 +24,12 @@ abstract class CConductor {
       ];
     mLog(">>>${starter.runtimeType}");
 
-    // loop through all games until there are no more actions
+    // loop through all action transactions and all games until there are no more actions
     while (carrier.actions.isNotEmpty) {
       CAction action = carrier.actions.removeAt(0);
+      // first we loop through all actions transitions
+      loop(carrier, action);
+      // then we loop through all games
       for (CGame game in games) {
         game.loop(carrier, action);
       }
@@ -35,6 +38,38 @@ abstract class CConductor {
     // react to all reactions
     for (CReaction reaction in carrier.reactions) {
       reaction.react();
+    }
+  }
+
+  static void loop(CCarrier carrier, CAction starter) {
+    List<CAction> actions = [starter];
+    while (actions.isNotEmpty) {
+      // get next action and transaction for that action
+      CAction? nextAktion = actions.removeAt(0);
+      List<CTransition> transitions = nextAktion.transitions;
+
+      for (final transition in transitions) {
+        // CTransition? transition = getTransition(nextAktion);
+
+        mLog("${starter.runtimeType}->${transition.runtimeType}");
+
+        // if transaction is null, then move to next action
+        // if (transition == null) {
+        //   continue;
+        // }
+
+        transition.transit();
+
+        for (CAction action in transition.actions) {
+          mLog("${transition.runtimeType}=>${action.identifier}");
+        }
+        for (CAction action in transition.carryActions) {
+          mLog("${transition.runtimeType}===>${action.identifier}");
+        }
+        actions.addAll(transition.actions);
+        carrier.actions.addAll(transition.carryActions);
+        carrier.reactions.addAll(transition.reactions);
+      }
     }
   }
 }

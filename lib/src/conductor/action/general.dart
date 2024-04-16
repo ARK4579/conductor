@@ -1,14 +1,16 @@
 import 'package:conductor/conductor.dart';
 
-String timerIntervalCoreActionI = "TimerIntervalCoreAction";
-String popRouterCoreActionI = "PopRouterCoreAction";
-
 class TimerIntervalCoreAction extends CAction {
   @override
-  String get identifier => timerIntervalCoreActionI;
+  String get identifier => "TimerIntervalCoreAction";
 }
 
 class PopRouterCoreAction extends CAction {
   @override
-  String get identifier => popRouterCoreActionI;
+  String get identifier => "PopRouterCoreAction";
+
+  @override
+  List<CTransition> get transitions => [
+        PopCoreGeneralTransition(triggererAction: this),
+      ];
 }
