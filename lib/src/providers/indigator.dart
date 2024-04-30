@@ -1,7 +1,7 @@
 import 'package:conductor/conductor.dart';
 
 class IndigatorSignals {
-  final Map<String, int> signals;
+  final Map<String, Signal> signals;
 
   IndigatorSignals(this.signals);
 }
@@ -15,7 +15,6 @@ class IndigatorNotifier extends Notifier<IndigatorSignals> {
   }
 }
 
-final indigatorProvider =
-    NotifierProvider<IndigatorNotifier, IndigatorSignals>(() {
+final indigatorProvider = NotifierProvider<IndigatorNotifier, IndigatorSignals>(() {
   return IndigatorNotifier();
 });

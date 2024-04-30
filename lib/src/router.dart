@@ -32,13 +32,10 @@ class CoreRoute {
 
   // If we want to do something to ALL screens, we can do it here
   // e.g. warapping all screens in NavigationRail
-  Widget _builder(BuildContext context, GoRouterState state,
-      List<CoreRoute> navRailRoutes) {
+  Widget _builder(BuildContext context, GoRouterState state, List<CoreRoute> navRailRoutes) {
     final path = state.fullPath;
 
-    List<CoreRoute> destinationRoutes = navRailRoutes
-        .where((e) => e.icon != null && e.url.path != "/")
-        .toList();
+    List<CoreRoute> destinationRoutes = navRailRoutes.where((e) => e.icon != null && e.url.path != "/").toList();
     List<NavigationRailDestination> destinations = destinationRoutes
         .map(
           (e) => NavigationRailDestination(
@@ -47,8 +44,7 @@ class CoreRoute {
           ),
         )
         .toList();
-    final selectedIndex =
-        destinationRoutes.indexWhere((e) => e.url.path == path);
+    final selectedIndex = destinationRoutes.indexWhere((e) => e.url.path == path);
 
     // mLog("destinationRoutes $destinationRoutes");
     // mLog("selectedIndex $selectedIndex");
@@ -82,26 +78,25 @@ class CoreRoute {
         : child;
   }
 
-  GoRoute toGoRoute(List<CoreRoute> navRailRoutes) {
+  GoRoute toGoRoute(List<CoreRoute> navRailRoutes, bool addNavRail) {
     // mLog("toGoRoute ${url.path}; showInNavRail && icon != null: ${showInNavRail && icon != null}");
     return GoRoute(
       path: url.path,
       builder: (BuildContext context, GoRouterState state) =>
-          showInNavRail && icon != null
-              ? _builder(context, state, navRailRoutes)
-              : child,
+          addNavRail && showInNavRail && icon != null ? _builder(context, state, navRailRoutes) : child,
     );
   }
 }
 
 abstract class CoreRouter {
+  bool get addNavRail => true;
+
   GoRouter get router => GoRouter(
         routes: getGoRoutes,
         debugLogDiagnostics: kDebugMode,
       );
 
-  List<GoRoute> get getGoRoutes =>
-      routes.map((e) => e.toGoRoute(routes)).toList();
+  List<GoRoute> get getGoRoutes => routes.map((e) => e.toGoRoute(routes, addNavRail)).toList();
 
   List<CoreRoute> get routes => coreRoutes + appRoutes;
 

@@ -8,18 +8,21 @@ class Dataset {
   }
   Dataset._internal();
 
-  final Map<String, int> _signals = {};
-  Map<String, int> get signals => _signals;
+  final Map<String, Signal> _signals = {};
+  Map<String, Signal> get signals => _signals;
 
-  void setSignal(String signalName, {int? signalValue}) {
-    _signals[signalName] = signalValue ?? DateTime.now().millisecondsSinceEpoch;
+  String? lastSignal;
+  void setSignal(Signal signal) {
+    if (lastSignal != signal.name) mLog("---$signal");
+    lastSignal = signal.name;
+    signal.at = DateTime.now().millisecondsSinceEpoch;
+    _signals[signal.name] = signal;
   }
 
   //
   // Global Signals
   //
 
-  static const String signalCurrentDateTimeQuaterRange = 'signalCurrentDateTimeQuaterRange';
   static DateTimeRange? _currentDateTimeQuaterRange;
   DateTimeRange? get currentDateTimeQuaterRange => _currentDateTimeQuaterRange;
 
@@ -43,11 +46,11 @@ class Dataset {
       );
       if (_currentDateTimeQuaterRange != newCurrentDateTimeQuaterRange) {
         _currentDateTimeQuaterRange = newCurrentDateTimeQuaterRange;
-        Dataset().setSignal(signalCurrentDateTimeQuaterRange);
+        CurrentDateTimeQuaterRangeSignal().set();
       }
     }
 
-    Dataset().setSignal(signalCurrentDateTime);
+    CurrentDateTimeSignal().set();
   }
 
   //

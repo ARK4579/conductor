@@ -12,7 +12,9 @@ abstract class RouterCoreReaction extends CReaction {
 class PopRouterCoreReaction extends RouterCoreReaction {
   @override
   void react() {
-    _router.pop();
+    if (_router.canPop()) {
+      _router.pop();
+    }
   }
 }
 
@@ -25,5 +27,17 @@ class PushRouterCoreReaction extends RouterCoreReaction {
   @override
   void react() {
     _router.push(url.path);
+  }
+}
+
+class ReplaceRouterCoreReaction extends RouterCoreReaction {
+  final CoreUrl url;
+  ReplaceRouterCoreReaction({
+    required this.url,
+  });
+
+  @override
+  void react() {
+    _router.replace(url.path);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:conductor/conductor.dart';
 
 extension ConductorWidgetRef on WidgetRef {
-  void watchSignal(String singnalName) => watch(indigatorProvider.select((invetigator) => invetigator.signals[singnalName]));
+  void watchSignal(Signal singnal) => watch(indigatorProvider.select((invetigator) => invetigator.signals[singnal.name]));
 
-  void watchSignalCurrentDateTime() => watchSignal(Dataset.signalCurrentDateTime);
+  void watchSignalCurrentDateTime() => watchSignal(CurrentDateTimeSignal());
 }
