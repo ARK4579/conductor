@@ -12,7 +12,7 @@ abstract class CConductor {
 
   static List<CGame> get games => coreGames + _conductorGames;
 
-  static void conduct(CAction starter) {
+  static void conduct(CAction starter) async {
     CCarrier carrier = CCarrier()
       ..actions = [
         starter,
@@ -23,10 +23,17 @@ abstract class CConductor {
     while (carrier.actions.isNotEmpty) {
       CAction action = carrier.actions.removeAt(0);
       // first we loop through all actions transitions
-      loop(carrier, action);
+      await loop(carrier, action);
       // then we loop through all games
+      action.transitions.removeWhere((_) => true);
       for (CGame game in games) {
-        game.loop(carrier, action);
+        CTransition? gapTransition = game.getTransition(action);
+        if (gapTransition != null) {
+          action.transitions.add(gapTransition);
+        }
+      }
+      if (action.transitions.isNotEmpty) {
+        await loop(carrier, action);
       }
     }
 
@@ -36,7 +43,7 @@ abstract class CConductor {
     }
   }
 
-  static void loop(CCarrier carrier, CAction starter) {
+  static Future<void> loop(CCarrier carrier, CAction starter) async {
     List<CAction> actions = [starter];
     while (actions.isNotEmpty) {
       // get next action and transaction for that action
@@ -46,10 +53,13 @@ abstract class CConductor {
       for (final transition in transitions) {
         mLog("$nextAktion->${transition.runtimeType}");
 
-        transition.transit();
+        await transition.transit();
 
         for (CAction action in transition.actions) {
           mLog("${transition.runtimeType}=>$action");
+        }
+        if (transition.actions.isEmpty) {
+          mLog("${transition.runtimeType}=>.");
         }
         for (CAction action in transition.carryActions) {
           mLog("${transition.runtimeType}===>$action");

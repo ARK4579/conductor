@@ -26,7 +26,6 @@ class Dataset {
   static DateTimeRange? _currentDateTimeQuaterRange;
   DateTimeRange? get currentDateTimeQuaterRange => _currentDateTimeQuaterRange;
 
-  static const String signalCurrentDateTime = 'currentDateTime';
   DateTime? _currentDateTime;
   DateTime? get currentDateTime => _currentDateTime;
   set currentDateTime(DateTime? currentDateTime) {
