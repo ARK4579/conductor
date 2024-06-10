@@ -4,18 +4,31 @@ extension LogRecordLine on LogRecord {
   String get logLine => '$time [${level.name}] $message';
 }
 
+String? lineTerminator() {
+  if (isLinux || isFuchsia) {
+    return "\n";
+  }
+  if (isMacOS) {
+    return "\r";
+  } else if (isWindows) {
+    return "\r\n";
+  } else {
+    return null;
+  }
+}
+
 class _MyLogger {
-  late final Logger? printLogger;
-  late final Logger? fileLogger;
+  Logger? printLogger;
+  Logger? fileLogger;
 
   File? _fileLoggerFile;
   Future<void> initfileLoggerFile() async {
-    if (_fileLoggerFile == null) {
+    if (_fileLoggerFile == null && lineTerminator() != null) {
       final directory = await getTemporaryDirectory();
       String filename = "conductor_log.txt";
       print("Logging to file ${directory.path}/$filename");
       _fileLoggerFile = File('${directory.path}/$filename');
-      _fileLoggerFile?.writeAsStringSync("${DateTime.now()}${Platform.lineTerminator}", flush: true);
+      _fileLoggerFile?.writeAsStringSync("${DateTime.now()}${lineTerminator()}", flush: true);
     }
   }
 
@@ -35,7 +48,7 @@ class _MyLogger {
         ..level = Level.ALL
         ..onRecord.listen((record) async {
           // ignore: avoid_print
-          _fileLoggerFile?.writeAsStringSync("${record.logLine}${Platform.lineTerminator}", mode: FileMode.append, flush: true);
+          _fileLoggerFile?.writeAsStringSync("${record.logLine}${lineTerminator()}", mode: FileMode.append, flush: true);
         });
     }
   }
