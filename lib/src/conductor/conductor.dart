@@ -1,6 +1,8 @@
 import 'package:conductor/conductor.dart';
 
 abstract class CConductor {
+  static bool printLogsToConsole = false;
+  static bool printLogsToFile = true;
   static List<CGame> get coreGames => [
         CoreGeneralGame(),
       ];
@@ -17,7 +19,7 @@ abstract class CConductor {
       ..actions = [
         starter,
       ];
-    mLog(">>>${starter.runtimeType}");
+    mLog(">>>${starter.runtimeType}", print: printLogsToConsole, file: printLogsToFile);
 
     // loop through all action transactions and all games until there are no more actions
     while (carrier.actions.isNotEmpty) {
@@ -51,18 +53,18 @@ abstract class CConductor {
       List<CTransition> transitions = nextAktion.transitions;
 
       for (final transition in transitions) {
-        mLog("$nextAktion->${transition.runtimeType}");
+        mLog("$nextAktion->${transition.runtimeType}", print: printLogsToConsole, file: printLogsToFile);
 
         await transition.transit();
 
         for (CAction action in transition.actions) {
-          mLog("${transition.runtimeType}=>$action");
+          mLog("${transition.runtimeType}=>$action", print: printLogsToConsole, file: printLogsToFile);
         }
         if (transition.actions.isEmpty) {
-          mLog("${transition.runtimeType}=>.");
+          mLog("${transition.runtimeType}=>.", print: printLogsToConsole, file: printLogsToFile);
         }
         for (CAction action in transition.carryActions) {
-          mLog("${transition.runtimeType}===>$action");
+          mLog("${transition.runtimeType}===>$action", print: printLogsToConsole, file: printLogsToFile);
         }
         actions.addAll(transition.actions);
         carrier.actions.addAll(transition.carryActions);

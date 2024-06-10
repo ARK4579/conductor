@@ -13,7 +13,7 @@ class Dataset {
 
   String? lastSignal;
   void setSignal(Signal signal) {
-    if (lastSignal != signal.name) mLog("---$signal");
+    if (lastSignal != signal.name) mLog("---$signal", print: CConductor.printLogsToConsole, file: CConductor.printLogsToFile);
     lastSignal = signal.name;
     signal.at = DateTime.now().millisecondsSinceEpoch;
     _signals[signal.name] = signal;

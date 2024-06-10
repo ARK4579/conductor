@@ -23,5 +23,6 @@ export 'package:logging/logging.dart';
 export 'package:path/path.dart';
 export 'package:equatable/equatable.dart';
 export 'package:intl/intl.dart' hide TextDirection;
+export 'package:universal_io/io.dart';
 
 export 'src/_.dart';

@@ -44,7 +44,7 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
   Widget build(BuildContext context) {
     MyRouter.router = widget.routerProvider;
 
-    mLog("AppBase++");
+    mLog("AppBase++", print: CConductor.printLogsToConsole, file: CConductor.printLogsToFile);
 
     return MaterialApp.router(
       title: '${widget.childAppName} ${widget.versionBuildString} ',

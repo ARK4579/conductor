@@ -1,18 +1,43 @@
 import 'package:conductor/conductor.dart';
 
+extension LogRecordLine on LogRecord {
+  String get logLine => '$time [${level.name}] $message';
+}
+
 class _MyLogger {
-  late final Logger logger;
+  late final Logger? printLogger;
+  late final Logger? fileLogger;
+
+  File? _fileLoggerFile;
+  Future<void> initfileLoggerFile() async {
+    if (_fileLoggerFile == null) {
+      final directory = await getTemporaryDirectory();
+      String filename = "conductor_log.txt";
+      print("Logging to file ${directory.path}/$filename");
+      _fileLoggerFile = File('${directory.path}/$filename');
+      _fileLoggerFile?.writeAsStringSync("${DateTime.now()}${Platform.lineTerminator}", flush: true);
+    }
+  }
+
+  String logLine(LogRecord record) => '${record.time} [${record.level.name}] ${record.message}';
 
   _MyLogger._privateConstructor() {
     // For non-root loggers, this is required to change level
     hierarchicalLoggingEnabled = true;
-    logger = Logger('core')
-      ..level = Level.ALL
-      ..onRecord.listen((record) {
-        if (kDebugMode) {
-          print('${record.level.name}: ${record.time}: ${record.message}');
-        }
-      });
+    if (kDebugMode) {
+      printLogger = Logger('core_print')
+        ..level = Level.ALL
+        ..onRecord.listen((record) {
+          // ignore: avoid_print
+          print(record.logLine);
+        });
+      fileLogger = Logger('core_file')
+        ..level = Level.ALL
+        ..onRecord.listen((record) async {
+          // ignore: avoid_print
+          _fileLoggerFile?.writeAsStringSync("${record.logLine}${Platform.lineTerminator}", mode: FileMode.append, flush: true);
+        });
+    }
   }
   static final _MyLogger _instance = _MyLogger._privateConstructor();
 
@@ -20,22 +45,27 @@ class _MyLogger {
     return _instance;
   }
 
-  static void logInfo(String message) {
-    if (!kDebugMode) return;
-    _instance.logger.info(message);
+  Future<void> init() async {
+    await initfileLoggerFile();
   }
 
-  static void logWarning(String message) {
-    if (!kDebugMode) return;
-    _instance.logger.warning(message);
+  static void logInfo(String message, {bool print = true, bool file = true}) {
+    if (print) _instance.printLogger?.info(message);
+    if (file) _instance.fileLogger?.info(message);
   }
 
-  static void logSevere(String message) {
-    if (!kDebugMode) return;
-    _instance.logger.severe(message);
+  static void logWarning(String message, {bool print = true, bool file = true}) {
+    if (print) _instance.printLogger?.warning(message);
+    if (file) _instance.fileLogger?.warning(message);
+  }
+
+  static void logSevere(String message, {bool print = true, bool file = true}) {
+    if (print) _instance.printLogger?.severe(message);
+    if (file) _instance.fileLogger?.severe(message);
   }
 }
 
-mLog(String message) => _MyLogger.logInfo(message);
-mWarn(String message) => _MyLogger.logWarning(message);
-mSevere(String message) => _MyLogger.logSevere(message);
+Future<void> loggerInit() async => _MyLogger().init();
+mLog(String message, {bool print = true, bool file = true}) => _MyLogger.logInfo(message, print: print, file: file);
+mWarn(String message, {bool print = true, bool file = true}) => _MyLogger.logWarning(message, print: print, file: file);
+mSevere(String message, {bool print = true, bool file = true}) => _MyLogger.logSevere(message, print: print, file: file);

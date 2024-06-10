@@ -46,9 +46,6 @@ class CoreRoute {
         .toList();
     final selectedIndex = destinationRoutes.indexWhere((e) => e.url.path == path);
 
-    // mLog("destinationRoutes $destinationRoutes");
-    // mLog("selectedIndex $selectedIndex");
-
     if (selectedIndex < 0) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +76,6 @@ class CoreRoute {
   }
 
   GoRoute toGoRoute(List<CoreRoute> navRailRoutes, bool addNavRail) {
-    // mLog("toGoRoute ${url.path}; showInNavRail && icon != null: ${showInNavRail && icon != null}");
     return GoRoute(
       path: url.path,
       builder: (BuildContext context, GoRouterState state) =>
