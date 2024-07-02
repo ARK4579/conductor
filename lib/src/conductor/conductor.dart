@@ -19,11 +19,12 @@ abstract class CConductor {
       ..actions = [
         starter,
       ];
-    mLog(">>>${starter.runtimeType}", print: printLogsToConsole, file: printLogsToFile);
+    mLog(">>>", print: printLogsToConsole, file: printLogsToFile);
 
     // loop through all action transactions and all games until there are no more actions
     while (carrier.actions.isNotEmpty) {
       CAction action = carrier.actions.removeAt(0);
+      mLog("${action.runtimeType}->", print: printLogsToConsole, file: printLogsToFile);
       // first we loop through all actions transitions
       await loop(carrier, action.transitions);
       // then we loop through all games
@@ -37,6 +38,7 @@ abstract class CConductor {
       }
       await loop(carrier, gameTransitions);
     }
+    mLog("<<<", print: printLogsToConsole, file: printLogsToFile);
 
     // react to all reactions
     for (CReaction reaction in carrier.reactions) {
@@ -50,8 +52,9 @@ abstract class CConductor {
     while (actions.isNotEmpty || transitions.isNotEmpty) {
       // get next action and transaction for that action
       CAction? nextAktion = actions.isNotEmpty ? actions.removeAt(0) : null;
-      if (nextAktion == null) {
-        transitions.addAll(nextAktion?.transitions ?? []);
+      if (nextAktion != null) {
+        mLog("${nextAktion.runtimeType}->", print: printLogsToConsole, file: printLogsToFile);
+        transitions.addAll(nextAktion.transitions);
       }
 
       // for (final transition in transitions)
@@ -62,13 +65,13 @@ abstract class CConductor {
         await transition.transit();
 
         for (CAction action in transition.actions) {
-          mLog("${transition.runtimeType}=>$action", print: printLogsToConsole, file: printLogsToFile);
+          mLog("=>$action", print: printLogsToConsole, file: printLogsToFile);
         }
         if (transition.actions.isEmpty) {
-          mLog("${transition.runtimeType}=>.", print: printLogsToConsole, file: printLogsToFile);
+          mLog("=>.", print: printLogsToConsole, file: printLogsToFile);
         }
         for (CAction action in transition.carryActions) {
-          mLog("${transition.runtimeType}===>$action", print: printLogsToConsole, file: printLogsToFile);
+          mLog("===>$action", print: printLogsToConsole, file: printLogsToFile);
         }
         actions.addAll(transition.actions);
         carrier.actions.addAll(transition.carryActions);
