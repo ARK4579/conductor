@@ -25,18 +25,17 @@ abstract class CConductor {
     while (carrier.actions.isNotEmpty) {
       CAction action = carrier.actions.removeAt(0);
       // first we loop through all actions transitions
-      await loop(carrier, action);
+      await loop(carrier, action.transitions);
       // then we loop through all games
-      action.transitions.removeWhere((_) => true);
+      // action.transitions.removeWhere((_) => true);
+      List<CTransition> gameTransitions = [];
       for (CGame game in games) {
         CTransition? gapTransition = game.getTransition(action);
         if (gapTransition != null) {
-          action.transitions.add(gapTransition);
+          gameTransitions.add(gapTransition);
         }
       }
-      if (action.transitions.isNotEmpty) {
-        await loop(carrier, action);
-      }
+      await loop(carrier, gameTransitions);
     }
 
     // react to all reactions
@@ -45,15 +44,20 @@ abstract class CConductor {
     }
   }
 
-  static Future<void> loop(CCarrier carrier, CAction starter) async {
-    List<CAction> actions = [starter];
-    while (actions.isNotEmpty) {
+  static Future<void> loop(CCarrier carrier, List<CTransition> starterTransitions) async {
+    List<CAction> actions = [];
+    List<CTransition> transitions = starterTransitions;
+    while (actions.isNotEmpty || transitions.isNotEmpty) {
       // get next action and transaction for that action
-      CAction? nextAktion = actions.removeAt(0);
-      List<CTransition> transitions = nextAktion.transitions;
+      CAction? nextAktion = actions.isNotEmpty ? actions.removeAt(0) : null;
+      if (nextAktion == null) {
+        transitions.addAll(nextAktion?.transitions ?? []);
+      }
 
-      for (final transition in transitions) {
-        mLog("$nextAktion->${transition.runtimeType}", print: printLogsToConsole, file: printLogsToFile);
+      // for (final transition in transitions)
+      while (transitions.isNotEmpty) {
+        CTransition? transition = transitions.removeAt(0);
+        mLog("->${transition.runtimeType}", print: printLogsToConsole, file: printLogsToFile);
 
         await transition.transit();
 
