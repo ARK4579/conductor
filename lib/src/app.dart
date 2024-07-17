@@ -42,6 +42,7 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(conductorTimeIntervalProvider);
     MyRouter.router = widget.routerProvider;
 
     mLog("AppBase++", print: CConductor.printLogsToConsole, file: CConductor.printLogsToFile);
