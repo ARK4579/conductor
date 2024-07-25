@@ -16,7 +16,14 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
 abstract class AppBase extends ConsumerStatefulWidget {
   GoRouter get routerProvider;
   String get childAppName;
-  String get versionBuildString;
+
+  int get minVerNo;
+  int get majVerNo;
+  int get revVerNo;
+  int get bldVerNo;
+
+  String get versionBuildString => 'v$minVerNo.$majVerNo.$revVerNo+$bldVerNo';
+
   List<CGame> get games => [];
 
   FutureWidgetRefCallBackFunction get providerInitializerFunction;
@@ -46,6 +53,11 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
     MyRouter.router = widget.routerProvider;
 
     mLog("AppBase++", print: CConductor.printLogsToConsole, file: CConductor.printLogsToFile);
+
+    Future(() {
+      final screenWidth = getScreenTypeFromSize(MediaQuery.of(context).size);
+      ref.read(screenTypeProvider.notifier).update((state) => screenWidth);
+    });
 
     return MaterialApp.router(
       title: '${widget.childAppName} ${widget.versionBuildString} ',

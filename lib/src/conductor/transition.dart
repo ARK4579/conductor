@@ -29,14 +29,14 @@ abstract class CTransition {
 
   CTransitionResults result = CTransitionResults.notExecuted;
 
-  bool? condition() => null;
+  bool condition() => true;
 
   Future<void> transit() async {
-    bool? conditionResult = condition();
+    bool conditionResult = condition();
 
     // if condition is overrideen, then use that only
-    if (conditionResult != null) {
-      result = conditionResult ? CTransitionResults.success : CTransitionResults.failure;
+    if (!conditionResult) {
+      result = CTransitionResults.failure;
       return;
     }
 
@@ -48,28 +48,26 @@ abstract class CTransition {
   void subTransit() {}
   Future<void> subTransitAsync() async {}
 
-  List<CAction> get actions =>
-      (result == CTransitionResults.notExecuted
-          ? <CAction>[]
-          : result == CTransitionResults.success
-              ? successActions.nonNulls.toList() + successAdditionalActions.nonNulls.toList()
-              : faliureActions.nonNulls.toList() + faliureAdditionalActions.nonNulls.toList()) +
-      anyActions.nonNulls.toList() +
-      anyAdditionalActions.nonNulls.toList();
-  List<CReaction> get reactions =>
-      (result == CTransitionResults.notExecuted
-          ? <CReaction>[]
-          : result == CTransitionResults.success
-              ? successReactions.nonNulls.toList()
-              : faliureReactions.nonNulls.toList()) +
-      anyReactions.nonNulls.toList();
-  List<CAction> get carryActions =>
-      (result == CTransitionResults.notExecuted
-          ? <CAction>[]
-          : result == CTransitionResults.success
-              ? successCarryActions.nonNulls.toList()
-              : faliureCarryActions.nonNulls.toList()) +
-      anyCarryActions.nonNulls.toList();
+  List<CAction> get _resultActions => result == CTransitionResults.notExecuted
+      ? <CAction>[]
+      : result == CTransitionResults.success
+          ? successActions.nonNulls.toList() + successAdditionalActions.nonNulls.toList()
+          : faliureActions.nonNulls.toList() + faliureAdditionalActions.nonNulls.toList();
+  List<CAction> get actions => _resultActions + anyActions.nonNulls.toList() + anyAdditionalActions.nonNulls.toList();
+
+  List<CReaction> get _resultReactions => result == CTransitionResults.notExecuted
+      ? <CReaction>[]
+      : result == CTransitionResults.success
+          ? successReactions.nonNulls.toList()
+          : faliureReactions.nonNulls.toList();
+  List<CReaction> get reactions => _resultReactions + anyReactions.nonNulls.toList();
+
+  List<CAction> get _resultCarryActions => result == CTransitionResults.notExecuted
+      ? <CAction>[]
+      : result == CTransitionResults.success
+          ? successCarryActions.nonNulls.toList()
+          : faliureCarryActions.nonNulls.toList();
+  List<CAction> get carryActions => _resultCarryActions + anyCarryActions.nonNulls.toList();
 
   @override
   String toString() {

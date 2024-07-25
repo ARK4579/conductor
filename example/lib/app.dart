@@ -11,11 +11,19 @@ class ExampleApp extends AppBase {
   String get childAppName => 'Example Conductor App';
 
   @override
-  String get versionBuildString => 'v0.0.1';
+  int get minVerNo => 0;
 
   @override
-  FutureWidgetRefCallBackFunction get providerInitializerFunction =>
-      (ref) async {};
+  int get majVerNo => 0;
+
+  @override
+  int get revVerNo => 2;
+
+  @override
+  int get bldVerNo => 2;
+
+  @override
+  FutureWidgetRefCallBackFunction get providerInitializerFunction => (ref) async {};
 
   // @override
   // List<CGame> get games => [

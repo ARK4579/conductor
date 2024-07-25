@@ -28,7 +28,7 @@ class _MyLogger {
       String filename = "conductor_log.txt";
       print("Logging to file ${directory.path}/$filename");
       _fileLoggerFile = File('${directory.path}/$filename');
-      _fileLoggerFile?.writeAsStringSync("${DateTime.now()}${lineTerminator()}", flush: true);
+      _fileLoggerFile?.writeAsStringSync("${DateTime.now()}${lineTerminator()}", mode: FileMode.append, flush: true);
     }
   }
 
