@@ -1,6 +1,6 @@
 name: conductor
 description: "Conductor: An event-driven, deterministic, state-machine based library for managing interaction between various components of a Flutter app."
-version: 0.0.7
+version: 0.0.8
 repository: https://github.com/ARK4579/conductor
 
 environment:
