@@ -17,14 +17,17 @@ abstract class AppBase extends ConsumerStatefulWidget {
   GoRouter get routerProvider;
   String get childAppName;
 
-  int get minVerNo;
   int get majVerNo;
+  int get minVerNo;
   int get revVerNo;
   int get bldVerNo;
 
-  String get versionBuildString => 'v$minVerNo.$majVerNo.$revVerNo+$bldVerNo';
+  String get versionBuildString => 'v$majVerNo.$minVerNo.$revVerNo+$bldVerNo';
 
   List<CGame> get games => [];
+
+  Provider<ThemeData> get lightTP => themeProvider;
+  Provider<ThemeData> get darkTP => darkThemeProvider;
 
   FutureWidgetRefCallBackFunction get providerInitializerFunction;
 
@@ -61,8 +64,8 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
 
     return MaterialApp.router(
       title: '${widget.childAppName} ${widget.versionBuildString} ',
-      theme: ref.watch(themeProvider),
-      darkTheme: ref.watch(darkThemeProvider),
+      theme: ref.watch(widget.lightTP),
+      darkTheme: ref.watch(widget.darkTP),
       themeMode: ThemeMode.system,
       routerDelegate: MyRouter.router.routerDelegate,
       routeInformationParser: MyRouter.router.routeInformationParser,

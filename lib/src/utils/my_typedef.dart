@@ -22,6 +22,7 @@ typedef MapStringDateTimeCallBackFunction = void Function(Map<String, DateTime?>
 typedef DateTimeRangeCallBackFunction = void Function(DateTimeRange? map);
 typedef DateTimeCallBackFunction = void Function(DateTime? map);
 typedef BoolCallBackFunction = void Function(bool? map);
+typedef BoolReturnCallBackFunction = bool Function();
 typedef IntCallBackFunction = void Function(int? value);
 typedef RefReadProvider = T Function<T>(ProviderListenable<T> provider);
 typedef NavigatorPopFunction = void Function<T extends Object?>([T? result]);
