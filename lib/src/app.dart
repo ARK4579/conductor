@@ -26,6 +26,10 @@ abstract class AppBase extends ConsumerStatefulWidget {
 
   List<CGame> get games => [];
 
+  Map<Type, ModelDataset> get datasets;
+
+  Map<Type, SingaltonModelDataset> get singaltonDatasets;
+
   Provider<ThemeData> get lightTP => themeProvider;
   Provider<ThemeData> get darkTP => darkThemeProvider;
 
@@ -48,6 +52,13 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
         ref.read(providerInitializingStatusP.notifier).update((state) => false);
       });
     });
+  }
+
+  @override
+  void initState() {
+    ConductorArenaC.datasets.addAll(widget.datasets);
+    ConductorArenaC.singaltonDatasets.addAll(widget.singaltonDatasets);
+    super.initState();
   }
 
   @override

@@ -14,6 +14,10 @@ abstract class ConductorArenaC {
 
   static List<CGame> get games => coreGames + _conductorGames;
 
+  static Map<Type, ModelDataset> get datasets => {};
+
+  static Map<Type, SingaltonModelDataset> get singaltonDatasets => {};
+
   static void conduct(CAction starter) async {
     CCarrier carrier = CCarrier()
       ..actions = [
