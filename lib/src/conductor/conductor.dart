@@ -1,8 +1,5 @@
 import 'package:conductor/conductor.dart';
 
-// typedef ModelDatasetTCallBackFunction = ModelDataset<T>? Function<T extends ModelBase>();
-// typedef SingaltonModelDatasetTCallBackFunction = SingaltonModelDataset<T>? Function<T extends ModelBase>();
-
 abstract class ConductorArenaC {
   static bool printLogsToConsole = false;
   static bool printLogsToFile = true;
@@ -49,30 +46,6 @@ abstract class ConductorArenaC {
 
   static SingaltonModelDataset<T>? getSingaltonModelDatasets<T extends ModelBase>() =>
       ConductorArenaC.singaltonDatasets[T] as SingaltonModelDataset<T>;
-
-  // static ModelDatasetTCallBackFunction? _getModelDataset;
-  // static setModelDatasetGetter(ModelDatasetTCallBackFunction getModelDataset) {
-  //   _getModelDataset = getModelDataset;
-  // }
-
-  // static ModelDataset<T>? getModelDataset<T extends ModelBase>() {
-  //   if (_getModelDataset == null) {
-  //     throw Exception("getNewItem is not set");
-  //   }
-  //   return _getModelDataset!<T>();
-  // }
-
-  // static SingaltonModelDatasetTCallBackFunction? _getSingaltonModelDataset;
-  // static setSingletonModelDatasetGetter(SingaltonModelDatasetTCallBackFunction getSingaltonModelDataset) {
-  //   _getSingaltonModelDataset = getSingaltonModelDataset;
-  // }
-
-  // static SingaltonModelDataset<T>? getSingaltonModelDataset<T extends ModelBase>() {
-  //   if (_getSingaltonModelDataset == null) {
-  //     throw Exception("getSingaltonModelDataset is not set");
-  //   }
-  //   return _getSingaltonModelDataset!<T>();
-  // }
 
   static void conduct(CAction starter) async {
     CCarrier carrier = CCarrier()

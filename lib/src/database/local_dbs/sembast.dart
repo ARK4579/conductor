@@ -4,10 +4,6 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
   String get directory;
   String get _dbKey => '$directory.db';
   String get singletonObjectID;
-  T getNewItem<T extends ModelBase>();
-  T? getNewItemFromJson<T extends ModelBase>(Map<String, Object?>? json);
-  ModelDataset<T>? getDataset<T extends ModelBase>();
-  SingaltonModelDataset<T>? singaltonDatasets<T extends ModelBase>();
 
   final Map<Type, StoreRef<String, Map<String, Object?>>> _stores = {};
   late final Database _db;
@@ -35,13 +31,13 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
   Future<void> loadDB();
 
   Future<void> _load<T extends ModelBase>() async {
-    final dataset = getDataset<T>();
+    final dataset = ConductorArenaC.getModelDataset<T>();
     if (dataset == null) return;
     dataset.items = await getAll<T>() ?? [];
   }
 
   Future<void> _loadSingleton<T extends ModelBase>() async {
-    final dataset = singaltonDatasets<T>();
+    final dataset = ConductorArenaC.getSingaltonModelDatasets<T>();
     if (dataset == null) return;
     dataset.item = await getSingleton<T>();
   }
@@ -61,7 +57,7 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
       return null;
     }
     final addedJson = await store.record(id).put(_db, saveItem.toJson());
-    return getNewItemFromJson<T>(addedJson);
+    return ConductorArenaC.getNewItemFromJson<T>(addedJson);
   }
 
   @override
@@ -82,7 +78,7 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
       mLog("failed to update $item [$T] with id $id");
       return null;
     }
-    return getNewItemFromJson<T>(updatedJson);
+    return ConductorArenaC.getNewItemFromJson<T>(updatedJson);
   }
 
   @override
@@ -106,7 +102,7 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
   Future<T?> getOne<T extends ModelBase>(String? id) async {
     if (id == null) return null;
     final obj = await _stores[T]?.record(id).get(_db);
-    return getNewItemFromJson<T>(obj);
+    return ConductorArenaC.getNewItemFromJson<T>(obj);
   }
 
   @override
@@ -117,7 +113,7 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
       return null;
     }
     final jsonItems = await store.find(_db);
-    return jsonItems.map((e) => getNewItemFromJson<T>(e.value)).nonNulls.toList();
+    return jsonItems.map((e) => ConductorArenaC.getNewItemFromJson<T>(e.value)).nonNulls.toList();
   }
 
   @override
@@ -125,7 +121,7 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
     T? item = await getOne<T>(singletonObjectID);
 
     if (item == null) {
-      item = getNewItem<T>();
+      item = ConductorArenaC.getNewItem<T>();
       item = await add<T>(item, existingId: singletonObjectID);
     }
 
