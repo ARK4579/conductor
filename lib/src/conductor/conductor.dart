@@ -47,6 +47,18 @@ abstract class ConductorArenaC {
   static SingaltonModelDataset<T>? getSingaltonModelDatasets<T extends ModelBase>() =>
       ConductorArenaC.singaltonDatasets[T] as SingaltonModelDataset<T>;
 
+  static StringForTCallBackFunction? _getTableName;
+  static setTableNameGetter(StringForTCallBackFunction getTableName) {
+    _getTableName = getTableName;
+  }
+
+  static String getTableName<T extends ModelBase>() {
+    if (_getTableName == null) {
+      throw Exception("_getTableName is not set");
+    }
+    return _getTableName!<T>();
+  }
+
   static void conduct(CAction starter) async {
     CCarrier carrier = CCarrier()
       ..actions = [

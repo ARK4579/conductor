@@ -32,6 +32,7 @@ abstract class AppBase extends ConsumerStatefulWidget {
 
   NewTItemCallBackFunction get getNewItem;
   NewTItemFromJsonCallBackFunction get getNewItemFromJson;
+  StringForTCallBackFunction get getTableName;
 
   Provider<ThemeData> get lightTP => themeProvider;
   Provider<ThemeData> get darkTP => darkThemeProvider;

@@ -22,21 +22,21 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
   @override
   Future<void> init() async {
     _db = kIsWeb ? await openDatabaseWeb() : await openDatabaseIo();
-    initStores();
+    _stores.addAll(initStores());
   }
 
-  void initStores();
+  Map<Type, StoreRef<String, Map<String, Object?>>> initStores();
 
   @override
   Future<void> loadDB();
 
-  Future<void> _load<T extends ModelBase>() async {
+  Future<void> loadModel<T extends ModelBase>() async {
     final dataset = ConductorArenaC.getModelDataset<T>();
     if (dataset == null) return;
     dataset.items = await getAll<T>() ?? [];
   }
 
-  Future<void> _loadSingleton<T extends ModelBase>() async {
+  Future<void> loadSingletonModel<T extends ModelBase>() async {
     final dataset = ConductorArenaC.getSingaltonModelDatasets<T>();
     if (dataset == null) return;
     dataset.item = await getSingleton<T>();

@@ -1,9 +1,7 @@
 import 'package:conductor/conductor.dart';
 
 abstract class FirebaseRemoteDBC extends RemoteDBC {
-  String getTableName<T extends ModelBase>();
   T getDataBaseC<T extends DataBaseC>();
-  T? getNewItemFromJson<T extends ModelBase>(Map<String, dynamic> json);
 
   User? get currentUser;
 
@@ -15,7 +13,7 @@ abstract class FirebaseRemoteDBC extends RemoteDBC {
   }
 
   Future<void> remoteSyncModel<T extends ModelBase>() async {
-    String tableName = getTableName<T>();
+    String tableName = ConductorArenaC.getTableName<T>();
 
     mLog("Remote Syncing $tableName...");
     List<T> items = await getDataBaseC().getAll<T>() ?? [];
@@ -38,7 +36,7 @@ abstract class FirebaseRemoteDBC extends RemoteDBC {
         String itemJsonId = itemJson.id;
         if (itemIds.contains(itemJsonId)) continue;
         mLog("Remote event $itemJsonId...");
-        final T? newItem = getNewItemFromJson<T>(itemJson.data());
+        final T? newItem = ConductorArenaC.getNewItemFromJson<T>(itemJson.data());
         if (newItem == null) {
           mLog("Error getting new item from json");
           continue;

@@ -56,8 +56,8 @@ abstract class ModelBase {
   dynamic copyWithId({String? newId});
   dynamic copyWithJson(Map<String, dynamic> newJson);
 
-  T copyWithModelBase<T extends ModelBase>(NewTItemFromJsonCallBackFunction getNewItemFromJson, {String? id, DateTime? timedAt, bool? isDeleted}) {
-    T? item = getNewItemFromJson<T>({
+  T copyWithModelBase<T extends ModelBase>({String? id, DateTime? timedAt, bool? isDeleted}) {
+    T? item = ConductorArenaC.getNewItemFromJson<T>({
       ...toJson(),
       ModelBase.idKey: id ?? this.id ?? const Uuid().v4(),
       ModelBase.timedAtKey: timedAt?.toIso8601String() ?? this.timedAt?.toIso8601String(),
