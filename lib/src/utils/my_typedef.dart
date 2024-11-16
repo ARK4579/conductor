@@ -26,3 +26,5 @@ typedef BoolReturnCallBackFunction = bool Function();
 typedef IntCallBackFunction = void Function(int? value);
 typedef RefReadProvider = T Function<T>(ProviderListenable<T> provider);
 typedef NavigatorPopFunction = void Function<T extends Object?>([T? result]);
+typedef NewTItemCallBackFunction = T Function<T extends ModelBase>();
+typedef NewTItemFromJsonCallBackFunction = T? Function<T extends ModelBase>(Map<String, Object?>? json);

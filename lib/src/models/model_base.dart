@@ -1,8 +1,5 @@
 import 'package:conductor/conductor.dart';
 
-typedef GetNewItemCallBackFunction<T extends ModelBase> = T Function();
-typedef GetNewItemJsonCallBackFunction<T extends ModelBase> = T? Function(Map<String, Object?>? json);
-
 bool isDiffModelBaseItem<T extends ModelBase>(T? item1, T? item2) {
   if (item1 == null && item2 == null) {
     return false;
@@ -59,8 +56,8 @@ abstract class ModelBase {
   dynamic copyWithId({String? newId});
   dynamic copyWithJson(Map<String, dynamic> newJson);
 
-  T copyWithModelBase<T extends ModelBase>(GetNewItemJsonCallBackFunction<T> getNewItemFromJson, {String? id, DateTime? timedAt, bool? isDeleted}) {
-    T? item = getNewItemFromJson({
+  T copyWithModelBase<T extends ModelBase>(NewTItemFromJsonCallBackFunction getNewItemFromJson, {String? id, DateTime? timedAt, bool? isDeleted}) {
+    T? item = getNewItemFromJson<T>({
       ...toJson(),
       ModelBase.idKey: id ?? this.id ?? const Uuid().v4(),
       ModelBase.timedAtKey: timedAt?.toIso8601String() ?? this.timedAt?.toIso8601String(),

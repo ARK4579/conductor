@@ -30,6 +30,9 @@ abstract class AppBase extends ConsumerStatefulWidget {
 
   Map<Type, SingaltonModelDataset> get singaltonDatasets;
 
+  NewTItemCallBackFunction get getNewItem;
+  NewTItemFromJsonCallBackFunction get getNewItemFromJson;
+
   Provider<ThemeData> get lightTP => themeProvider;
   Provider<ThemeData> get darkTP => darkThemeProvider;
 
