@@ -10,7 +10,7 @@ abstract class Signal {
     return '--$name';
   }
 
-  void set() => Dataset().setSignal(this);
+  void set() => DatasetC().setSignal(this);
 }
 
 class CurrentDateTimeQuaterRangeSignal extends Signal {

@@ -20,7 +20,6 @@
     "**/.crashlytics": true,
     "**/my-builds": true,
     "**/.git": true,
-    "**/.gitignore": true,
     "**/.svn": true,
     "**/.hg": true,
     "**/CVS": true,

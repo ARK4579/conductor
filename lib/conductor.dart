@@ -1,5 +1,3 @@
-library conductor;
-
 export 'dart:math';
 export 'dart:ui' hide Gradient, decodeImageFromList, ImageDecoderCallback, StrutStyle, TextStyle, Image, clampDouble;
 export 'dart:async' hide AsyncError;
@@ -24,5 +22,9 @@ export 'package:path/path.dart';
 export 'package:equatable/equatable.dart';
 export 'package:intl/intl.dart' hide TextDirection;
 export 'package:universal_io/io.dart';
+export 'package:uuid/uuid.dart';
+export 'package:firebase_core/firebase_core.dart';
+export 'package:firebase_auth/firebase_auth.dart';
+export 'package:cloud_firestore/cloud_firestore.dart' hide FieldValue, Transaction, Filter, kIsWasm;
 
 export 'src/_.dart';

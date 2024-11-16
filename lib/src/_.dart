@@ -1,7 +1,9 @@
 export 'conductor/_.dart';
 export 'constants/_.dart';
 export 'data_models/_.dart';
+export 'database/_.dart';
 export 'dataset/_.dart';
+export 'models/_.dart';
 export 'providers/_.dart';
 export 'repository/_.dart';
 export 'utils/_.dart';

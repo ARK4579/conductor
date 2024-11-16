@@ -13,7 +13,7 @@ class CounterActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Dataset.addAction(action);
+        DatasetC.addAction(action);
       },
       child: MyWordWidget(word: word),
     );

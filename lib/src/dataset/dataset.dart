@@ -1,12 +1,12 @@
 import 'package:conductor/conductor.dart';
 
-class Dataset {
+class DatasetC {
   // make Dateset singleton so that we can easily access it from anywhere as well as extend
-  static final Dataset _instance = Dataset._internal();
-  factory Dataset() {
+  static final DatasetC _instance = DatasetC._internal();
+  factory DatasetC() {
     return _instance;
   }
-  Dataset._internal();
+  DatasetC._internal();
 
   final Map<String, Signal> _signals = {};
   Map<String, Signal> get signals => _signals;

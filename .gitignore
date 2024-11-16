@@ -9,6 +9,7 @@ example/macos
 example/web
 example/windows
 example/linux
+DEPLOY.md
 
 
 # Files and directories created by pub
