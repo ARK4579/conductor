@@ -50,7 +50,9 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
     for (CGame game in widget.games) {
       ConductorArenaC.addConductorGame(game);
     }
-    Future(() {
+
+    Future(() async {
+      await widget.appDataBase?.init();
       widget.providerInitializerFunction(ref).then((value) {
         ref.read(providerInitializingStatusP.notifier).update((state) => false);
       });

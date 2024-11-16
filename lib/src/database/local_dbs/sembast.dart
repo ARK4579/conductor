@@ -23,6 +23,7 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
   Future<void> init() async {
     _db = kIsWeb ? await openDatabaseWeb() : await openDatabaseIo();
     _stores.addAll(initStores());
+    mLog("SembastDataBaseC.init() completed ${_stores.keys}");
   }
 
   Map<Type, StoreRef<String, Map<String, Object?>>> initStores();
