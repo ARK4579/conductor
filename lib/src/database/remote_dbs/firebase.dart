@@ -1,8 +1,6 @@
 import 'package:conductor/conductor.dart';
 
 abstract class FirebaseRemoteDBC extends RemoteDBC {
-  T getDataBaseC<T extends DataBaseC>();
-
   User? get currentUser;
 
   FirebaseFirestore get _remoteDB => FirebaseFirestore.instance;
@@ -16,7 +14,7 @@ abstract class FirebaseRemoteDBC extends RemoteDBC {
     String tableName = ConductorArenaC.getTableName<T>();
 
     mLog("Remote Syncing $tableName...");
-    List<T> items = await getDataBaseC().getAll<T>() ?? [];
+    List<T> items = await ConductorArenaC.appDataBase?.getAll<T>() ?? [];
     List<String> itemIds = [];
     mLog("pushing ${items.length} ${T}s...");
     for (var item in items) {
@@ -41,7 +39,7 @@ abstract class FirebaseRemoteDBC extends RemoteDBC {
           mLog("Error getting new item from json");
           continue;
         }
-        getDataBaseC().add<T>(newItem, existingId: itemJsonId);
+        ConductorArenaC.appDataBase?.add<T>(newItem, existingId: itemJsonId);
       }
     });
     mLog("Remote $T Synced.");

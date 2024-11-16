@@ -33,6 +33,7 @@ abstract class AppBase extends ConsumerStatefulWidget {
   NewTItemCallBackFunction get getNewItem;
   NewTItemFromJsonCallBackFunction get getNewItemFromJson;
   StringForTCallBackFunction get getTableName;
+  DataBaseC get appDataBase;
 
   Provider<ThemeData> get lightTP => themeProvider;
   Provider<ThemeData> get darkTP => darkThemeProvider;
@@ -62,6 +63,10 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
   void initState() {
     ConductorArenaC.datasets.addAll(widget.datasets);
     ConductorArenaC.singaltonDatasets.addAll(widget.singaltonDatasets);
+    ConductorArenaC.setNewItemGetter(widget.getNewItem);
+    ConductorArenaC.setNewItemFromJsonGetter(widget.getNewItemFromJson);
+    ConductorArenaC.setTableNameGetter(widget.getTableName);
+    ConductorArenaC.appDataBase = widget.appDataBase;
     super.initState();
   }
 

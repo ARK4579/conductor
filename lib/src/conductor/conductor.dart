@@ -14,6 +14,8 @@ abstract class ConductorArenaC {
 
   static List<CGame> get games => coreGames + _conductorGames;
 
+  static DataBaseC? appDataBase;
+
   static Map<Type, ModelDataset> get datasets => {};
 
   static Map<Type, SingaltonModelDataset> get singaltonDatasets => {};
