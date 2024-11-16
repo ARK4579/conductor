@@ -26,14 +26,12 @@ abstract class AppBase extends ConsumerStatefulWidget {
 
   List<CGame> get games => [];
 
-  Map<Type, ModelDataset> get datasets;
-
-  Map<Type, SingaltonModelDataset> get singaltonDatasets;
-
-  NewTItemCallBackFunction get getNewItem;
-  NewTItemFromJsonCallBackFunction get getNewItemFromJson;
-  StringForTCallBackFunction get getTableName;
-  DataBaseC get appDataBase;
+  Map<Type, ModelDataset> get datasets => {};
+  Map<Type, SingaltonModelDataset> get singaltonDatasets => {};
+  NewTItemCallBackFunction? get getNewItem => null;
+  NewTItemFromJsonCallBackFunction? get getNewItemFromJson => null;
+  StringForTCallBackFunction? get getTableName => null;
+  DataBaseC? get appDataBase => null;
 
   Provider<ThemeData> get lightTP => themeProvider;
   Provider<ThemeData> get darkTP => darkThemeProvider;

@@ -11,7 +11,11 @@ abstract class FirebaseRemoteDBC extends RemoteDBC {
   }
 
   Future<void> remoteSyncModel<T extends ModelBase>() async {
-    String tableName = ConductorArenaC.getTableName<T>();
+    String? tableName = ConductorArenaC.getTableName<T>();
+    if (tableName == null) {
+      mLog("Error getting table name for $T, skipping remote sync.");
+      return;
+    }
 
     mLog("Remote Syncing $tableName...");
     List<T> items = await ConductorArenaC.appDataBase?.getAll<T>() ?? [];

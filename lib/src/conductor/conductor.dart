@@ -21,26 +21,22 @@ abstract class ConductorArenaC {
   static Map<Type, SingaltonModelDataset> get singaltonDatasets => {};
 
   static NewTItemCallBackFunction? _getNewItem;
-  static setNewItemGetter(NewTItemCallBackFunction getNewItem) {
+  static setNewItemGetter(NewTItemCallBackFunction? getNewItem) {
     _getNewItem = getNewItem;
   }
 
-  static T getNewItem<T extends ModelBase>() {
-    if (_getNewItem == null) {
-      throw Exception("getNewItem is not set");
-    }
+  static T? getNewItem<T extends ModelBase>() {
+    if (_getNewItem == null) return null;
     return _getNewItem!<T>();
   }
 
   static NewTItemFromJsonCallBackFunction? _getNewItemFromJson;
-  static setNewItemFromJsonGetter(NewTItemFromJsonCallBackFunction getNewItemFromJson) {
+  static setNewItemFromJsonGetter(NewTItemFromJsonCallBackFunction? getNewItemFromJson) {
     _getNewItemFromJson = getNewItemFromJson;
   }
 
   static T? getNewItemFromJson<T extends ModelBase>(Map<String, Object?>? json) {
-    if (_getNewItemFromJson == null) {
-      throw Exception("getNewItem is not set");
-    }
+    if (_getNewItemFromJson == null) return null;
     return _getNewItemFromJson!<T>(json);
   }
 
@@ -50,14 +46,12 @@ abstract class ConductorArenaC {
       ConductorArenaC.singaltonDatasets[T] as SingaltonModelDataset<T>;
 
   static StringForTCallBackFunction? _getTableName;
-  static setTableNameGetter(StringForTCallBackFunction getTableName) {
+  static setTableNameGetter(StringForTCallBackFunction? getTableName) {
     _getTableName = getTableName;
   }
 
-  static String getTableName<T extends ModelBase>() {
-    if (_getTableName == null) {
-      throw Exception("_getTableName is not set");
-    }
+  static String? getTableName<T extends ModelBase>() {
+    if (_getTableName == null) return null;
     return _getTableName!<T>();
   }
 

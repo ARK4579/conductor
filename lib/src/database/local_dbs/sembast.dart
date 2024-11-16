@@ -120,13 +120,16 @@ abstract class SembastDataBaseC extends LocalDataBaseC {
   Future<T> getSingleton<T extends ModelBase>() async {
     T? item = await getOne<T>(singletonObjectID);
 
-    if (item == null) {
-      item = ConductorArenaC.getNewItem<T>();
-      item = await add<T>(item, existingId: singletonObjectID);
-    }
+    item ??= ConductorArenaC.getNewItem<T>();
 
     if (item == null) {
-      throw Exception('getSingleton<$T>: unable to get and add');
+      throw Exception('getSingleton<$T>: unable to get new item');
+    }
+
+    item = await add<T>(item, existingId: singletonObjectID);
+
+    if (item == null) {
+      throw Exception('getSingleton<$T>: unable to add new item');
     }
 
     return item;
