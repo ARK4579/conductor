@@ -5,7 +5,7 @@ class ConductorNotifier extends Notifier {
   @override
   void build() {
     ref.watch(_conductorTimerProvider).value;
-    CConductor.conduct(TimerIntervalCoreAction());
+    ConductorArenaC.conduct(TimerIntervalCoreAction());
   }
 }
 

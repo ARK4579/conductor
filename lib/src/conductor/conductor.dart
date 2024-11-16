@@ -1,6 +1,6 @@
 import 'package:conductor/conductor.dart';
 
-abstract class CConductor {
+abstract class ConductorArenaC {
   static bool printLogsToConsole = false;
   static bool printLogsToFile = true;
   static List<CGame> get coreGames => [

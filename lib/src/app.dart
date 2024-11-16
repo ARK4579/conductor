@@ -41,7 +41,7 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
   @override
   void afterFirstLayout(BuildContext context) {
     for (CGame game in widget.games) {
-      CConductor.addConductorGame(game);
+      ConductorArenaC.addConductorGame(game);
     }
     Future(() {
       widget.providerInitializerFunction(ref).then((value) {
@@ -55,7 +55,7 @@ class _AppBaseState extends ConsumerState<AppBase> with AfterLayoutMixin<AppBase
     ref.watch(conductorTimeIntervalProvider);
     MyRouter.router = widget.routerProvider;
 
-    mLog("AppBase++", print: CConductor.printLogsToConsole, file: CConductor.printLogsToFile);
+    mLog("AppBase++", print: ConductorArenaC.printLogsToConsole, file: ConductorArenaC.printLogsToFile);
 
     Future(() {
       final screenWidth = getScreenTypeFromSize(MediaQuery.of(context).size);
