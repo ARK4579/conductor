@@ -74,7 +74,7 @@ class ModelList<T extends ModelBase> extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("${items?.length} ${ConductorArenaC.getTableName<T>()}"),
+                child: Text("${items?.length ?? "No"} ${ConductorArenaC.getTableName<T>()}"),
               ),
               ...slotWidgets,
             ],

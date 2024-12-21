@@ -1,7 +1,7 @@
 import 'package:conductor/conductor.dart';
 
 abstract class ConductorArenaC {
-  static bool printLogsToConsole = false;
+  static bool printLogsToConsole = true;
   static bool printLogsToFile = true;
   static List<CGame> get coreGames => [
         CoreGeneralGame(),
@@ -16,7 +16,8 @@ abstract class ConductorArenaC {
 
   static DataBaseC? appDataBase;
 
-  static Map<Type, ModelDataset> get datasets => {};
+  static final Map<Type, ModelDataset> _datasets = {};
+  static Map<Type, ModelDataset> get datasets => _datasets;
 
   static Map<Type, SingaltonModelDataset> get singaltonDatasets => {};
 
@@ -60,12 +61,14 @@ abstract class ConductorArenaC {
       ..actions = [
         starter,
       ];
-    mLog(">>>", print: printLogsToConsole, file: printLogsToFile);
+    List<String> cLogs = [];
 
     // loop through all action transactions and all games until there are no more actions
     while (carrier.actions.isNotEmpty) {
       CAction action = carrier.actions.removeAt(0);
-      mLog("${action.runtimeType}->", print: printLogsToConsole, file: printLogsToFile);
+      if (!action.recurringAction) {
+        cLogs.add("${action.runtimeType}->");
+      }
       // first we loop through all actions transitions
       await loop(carrier, action.transitions);
       // then we loop through all games
@@ -79,7 +82,12 @@ abstract class ConductorArenaC {
       }
       await loop(carrier, gameTransitions);
     }
-    mLog("<<<", print: printLogsToConsole, file: printLogsToFile);
+    if (cLogs.isNotEmpty) {
+      cLogs = [">>>", ...cLogs, "<<<"];
+      for (String log in cLogs) {
+        mLog(log, print: printLogsToConsole, file: printLogsToFile);
+      }
+    }
 
     // react to all reactions
     for (CReaction reaction in carrier.reactions) {

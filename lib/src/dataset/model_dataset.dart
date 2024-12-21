@@ -29,6 +29,7 @@ class ModelDataset<T extends ModelBase> {
   List<T> _items = [];
   List<T> get items => _items;
   set items(List<T> newItems) {
+    mLog("ModelDataset: set items: ${T.toString()} ${newItems.length}");
     _items.clear();
     _items.addAll(newItems);
     sort();
@@ -56,6 +57,7 @@ class ModelDataset<T extends ModelBase> {
   }
 
   void update(T updatedItem) {
+    mLog("ModelDataset: update: ${T.toString()} ${updatedItem.id}");
     _items = _items.where((e) => e.id != updatedItem.id).toList();
     _items.add(updatedItem);
     sort();
