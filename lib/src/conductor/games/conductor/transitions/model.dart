@@ -46,10 +46,9 @@ class CreateItemTransition<T extends ModelBase> extends CTransition {
     if (triggererAction.refreshBeforeAdding) {
       createdItem = await createdItem.refresh() as T;
     }
-    final createdSavedItem = await ConductorArenaC.appDataBase?.add<T>(
-      createdItem,
-      existingId: triggererAction.existingId,
-    );
+    final createdSavedItem = (ConductorArenaC.datasets[T]?.linkLocalDB ?? false)
+        ? await ConductorArenaC.appDataBase?.add<T>(createdItem, existingId: triggererAction.existingId)
+        : createdItem;
     if (createdSavedItem != null) ConductorArenaC.datasets[T]?.update(createdSavedItem);
     anyAdditionalActions.add(ItemSelectedAction(item: createdSavedItem));
   }
@@ -64,7 +63,8 @@ class UpdateItemTransition<T extends ModelBase> extends CTransition {
     final updatedItem = triggererAction.item;
     if (updatedItem == null) return;
     if (updatedItem.id == null) return;
-    final updatedSavedItem = await ConductorArenaC.appDataBase?.update<T>(updatedItem);
+    final updatedSavedItem =
+        (ConductorArenaC.datasets[T]?.linkLocalDB ?? false) ? await ConductorArenaC.appDataBase?.update<T>(updatedItem) : updatedItem;
     if (updatedSavedItem != null) {
       if (updatedSavedItem.isSingleton) {
         ConductorArenaC.singaltonDatasets[T]?.item = updatedSavedItem;
@@ -84,7 +84,7 @@ class DeleteItemTransition<T extends ModelBase> extends CTransition {
   Future<void> subTransitAsync() async {
     final deletedItem = triggererAction.item;
     if (deletedItem == null) return;
-    ConductorArenaC.appDataBase?.delete<T>(deletedItem);
+    if (ConductorArenaC.datasets[T]?.linkLocalDB ?? false) ConductorArenaC.appDataBase?.delete<T>(deletedItem);
     ConductorArenaC.datasets[T]?.delete(deletedItem);
     ConductorArenaC.datasets[T]?.removeSelected(deletedItem);
     final lastSelected = ConductorArenaC.datasets[T]?.lastSelected as T?;

@@ -18,6 +18,11 @@ class ModelSignals<T extends ModelBase> {
 class ModelDataset<T extends ModelBase> {
   final signals = ModelSignals<T>();
 
+  final bool linkLocalDB;
+  ModelDataset({
+    this.linkLocalDB = true,
+  });
+
   T? _selected;
   T? get selected => _selected;
   set selected(T? nowSelected) {
