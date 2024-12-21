@@ -46,9 +46,13 @@ class CreateItemTransition<T extends ModelBase> extends CTransition {
     if (triggererAction.refreshBeforeAdding) {
       createdItem = await createdItem.refresh() as T;
     }
-    final createdSavedItem = (ConductorArenaC.datasets[T]?.linkLocalDB ?? false)
-        ? await ConductorArenaC.appDataBase?.add<T>(createdItem, existingId: triggererAction.existingId)
-        : createdItem;
+    T? createdSavedItem;
+    if (ConductorArenaC.datasets[T]?.linkLocalDB ?? false) {
+      createdSavedItem = await ConductorArenaC.appDataBase?.add<T>(createdItem, existingId: triggererAction.existingId);
+    } else {
+      createdSavedItem = createdItem;
+      if (createdSavedItem.id == null) createdSavedItem = createdSavedItem.copyWithId();
+    }
     if (createdSavedItem != null) ConductorArenaC.datasets[T]?.update(createdSavedItem);
     anyAdditionalActions.add(ItemSelectedAction(item: createdSavedItem));
   }
