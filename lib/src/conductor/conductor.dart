@@ -41,10 +41,10 @@ abstract class ConductorArenaC {
     return _getNewItemFromJson!<T>(json);
   }
 
-  static ModelDataset<T>? getModelDataset<T extends ModelBase>() => ConductorArenaC.datasets[T] as ModelDataset<T>;
+  static ModelDataset<T>? getModelDataset<T extends ModelBase>() => ConductorArenaC.datasets[T] as ModelDataset<T>?;
 
   static SingaltonModelDataset<T>? getSingaltonModelDatasets<T extends ModelBase>() =>
-      ConductorArenaC.singaltonDatasets[T] as SingaltonModelDataset<T>;
+      ConductorArenaC.singaltonDatasets[T] as SingaltonModelDataset<T>?;
 
   static StringForTCallBackFunction? _getTableName;
   static setTableNameGetter(StringForTCallBackFunction? getTableName) {

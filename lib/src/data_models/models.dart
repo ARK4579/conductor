@@ -1,5 +1,6 @@
 import 'package:conductor/conductor.dart';
 
+// TODO: remove this
 class BaseDataModel {
   final DataConfigFiled? config;
 

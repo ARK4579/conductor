@@ -5,6 +5,18 @@ class TimerIntervalCoreAction extends CAction {
   bool get recurringAction => true;
 }
 
+class PushRouterCoreAction extends CAction {
+  final CoreUrl url;
+  PushRouterCoreAction({
+    required this.url,
+  });
+
+  @override
+  List<CTransition> get transitions => [
+        PushCoreGeneralTransition(triggererAction: this),
+      ];
+}
+
 class PopRouterCoreAction extends CAction {
   @override
   List<CTransition> get transitions => [

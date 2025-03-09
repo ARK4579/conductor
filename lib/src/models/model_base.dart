@@ -30,7 +30,7 @@ bool isDiffModelBaseItems<T extends ModelBase>(List<T>? list1, List<T>? list2) {
 }
 
 abstract class ModelBase {
-  String get classTableName => throw Exception('classTableName');
+  String get dbTableName;
 
   static const String idKey = '.1';
   static const String timedAtKey = '.2';

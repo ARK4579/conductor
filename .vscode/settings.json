@@ -35,7 +35,7 @@
     "**/linux": true,
     "**/macos": true,
     "**/windows": true,
-    "**/pubspec.lock": true,
+    // "**/pubspec.lock": true,
     "**/*.iml": true,
     "**/LICENSE": true,
     "**/CHANGELOG.md": true,

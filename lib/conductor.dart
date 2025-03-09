@@ -20,7 +20,7 @@ export 'package:os_detect/os_detect.dart';
 export 'package:logging/logging.dart';
 export 'package:path/path.dart';
 export 'package:equatable/equatable.dart';
-export 'package:intl/intl.dart' hide TextDirection;
+// export 'package:intl/intl.dart' hide TextDirection;
 export 'package:universal_io/io.dart';
 export 'package:uuid/uuid.dart';
 export 'package:firebase_core/firebase_core.dart';
