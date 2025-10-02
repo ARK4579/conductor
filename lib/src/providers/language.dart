@@ -1,7 +1,8 @@
 import 'package:conductor/conductor.dart';
 
-class LanguageNotifier extends StateNotifier<Language> {
-  LanguageNotifier(super.state);
+class LanguageNotifier extends Notifier<Language> {
+  @override
+  Language build() => Language.english;
 
   void urdu() {
     state = Language.urdu;
@@ -20,7 +21,6 @@ class LanguageNotifier extends StateNotifier<Language> {
   }
 }
 
-final languageProvider =
-    StateNotifierProvider<LanguageNotifier, Language>((ref) {
-  return LanguageNotifier(Language.romanUrdu);
+final languageProvider = NotifierProvider<LanguageNotifier, Language>(() {
+  return LanguageNotifier();
 });

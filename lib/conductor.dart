@@ -1,5 +1,3 @@
-library conductor;
-
 export 'dart:math';
 export 'dart:ui' hide Gradient, decodeImageFromList, ImageDecoderCallback, StrutStyle, TextStyle, Image, clampDouble;
 export 'dart:async' hide AsyncError;
